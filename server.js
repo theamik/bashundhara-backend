@@ -18,8 +18,9 @@ const server = http.createServer(app)
 // }))
 
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://bashundhara.vercel.app'],
-    credentials: true
+    origin: ['http://localhost:3000', 'http://localhost:3001'],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"]
 }))
 const io = socket(server, {
     cors: {
