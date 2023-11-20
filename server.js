@@ -13,7 +13,7 @@ const socket = require('socket.io')
 const server = http.createServer(app)
 
 app.use(cors({
-    origin: ['https://bashundhara-admin.vercel.app', 'https://bashundhara.vercel.app'],
+    origin: ['https://bashundhara-admin.onrender.com', 'https://bashundhara.vercel.app'],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"]
 }))
