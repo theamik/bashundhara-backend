@@ -19,12 +19,13 @@ class authControllers {
                 if (match) {
                     const token = await createToken({
                         id: admin.id,
-                        role: admin.role
+                        role: admin.role,
+                        userInfo: seller
                     });
                     res.cookie('accessToken', token, {
                         expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)
                     })
-                    responseReturn(res, 200, { token, userInfo: admin, message: "Logged In !" })
+                    responseReturn(res, 200, { token,  message: "Logged In !" })
                 } else {
                     responseReturn(res, 404, { error: "Password Incorrect" })
                 }
@@ -44,12 +45,13 @@ class authControllers {
                 if (match) {
                     const token = await createToken({
                         id: seller.id,
-                        role: seller.role
+                        role: seller.role,
+                        userInfo: seller
                     })
                     res.cookie('accessToken', token, {
                         expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
                     })
-                    responseReturn(res, 200, { token, userInfo: seller, message: 'Login success' })
+                    responseReturn(res, 200, { token, message: 'Login success' })
                 } else {
                     responseReturn(res, 404, { error: "Password wrong" })
                 }
