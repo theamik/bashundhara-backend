@@ -12,16 +12,17 @@ const socket = require('socket.io')
 
 const server = http.createServer(app)
 
-// app.use(cors({
-//     origin: ['https://bashundhara-admin.vercel.app', 'https://bashundhara.vercel.app'],
-//     credentials: true
-// }))
-
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'],
+    origin: ['https://bashundhara-admin.vercel.app', 'https://bashundhara.vercel.app'],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"]
 }))
+
+// app.use(cors({
+//     origin: ['http://localhost:3000', 'http://localhost:3001'],
+//     credentials: true,
+//     methods: ["GET", "POST", "PUT", "DELETE"]
+// }))
 const io = socket(server, {
     cors: {
         origin: '*',

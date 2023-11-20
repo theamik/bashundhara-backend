@@ -1,6 +1,6 @@
 const bannerModel = require('../../models/bannerModel');
 const productModel = require('../../models/productModel');
-const cloudinary  = require('../../utils/cloudinaryConfig');
+const cloudinary = require('../../utils/cloudinaryConfig');
 const { responseReturn } = require('../../utils/response')
 const { formidable } = require('formidable');
 
@@ -19,11 +19,11 @@ class bannerController {
                 let path = filepath.toString()
 
                 try {
-                    const {slug} = await productModel.findById(productId)
-                    const available = await bannerModel.find({productId:productId})                    
-                    if(available.length !==0){
+                    const { slug } = await productModel.findById(productId)
+                    const available = await bannerModel.find({ productId: productId })
+                    if (available.length !== 0) {
                         let temp = available[0].banner.split('/')
-                        temp = temp[temp.length -1]
+                        temp = temp[temp.length - 1]
                         const imageName = temp.split('.')[0]
                         await cloudinary.uploader.destroy(imageName)
                         await available[0].deleteOne()
@@ -38,7 +38,7 @@ class bannerController {
                         } else {
                             responseReturn(res, 404, { error: 'Image upload failed' })
                         }
-                    }else{
+                    } else {
                         const result = await cloudinary.uploader.upload(path, { folder: 'banners' })
                         if (result) {
                             const banner = await bannerModel.create({
@@ -62,7 +62,7 @@ class bannerController {
     get_banner = async (req, res) => {
         const { productId } = req.params;
         try {
-            const banner = await bannerModel.find({productId:productId})
+            const banner = await bannerModel.find({ productId: productId })
             responseReturn(res, 200, { banner })
         } catch (error) {
             responseReturn(res, 500, { error: error.message })
@@ -70,12 +70,11 @@ class bannerController {
     }
 
     get_banners = async (req, res) => {
-
         try {
             const banners = await bannerModel.aggregate([
                 {
-                    $sample:{
-                        size:10
+                    $sample: {
+                        size: 10
                     }
                 }
             ])
