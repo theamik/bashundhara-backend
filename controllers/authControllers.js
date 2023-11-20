@@ -6,7 +6,7 @@ const { responseReturn } = require("../utils/response");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { createToken } = require("../utils/tokenCreate");
-const cloudinary  = require('../utils/cloudinaryConfig');
+const cloudinary = require('../utils/cloudinaryConfig');
 const { formidable } = require('formidable');
 class authControllers {
     admin_login = async (req, res) => {
@@ -24,7 +24,7 @@ class authControllers {
                     res.cookie('accessToken', token, {
                         expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)
                     })
-                    responseReturn(res, 200, { token, message: "Logged In !" })
+                    responseReturn(res, 200, { token, userInfo: admin, message: "Logged In !" })
                 } else {
                     responseReturn(res, 404, { error: "Password Incorrect" })
                 }
@@ -49,7 +49,7 @@ class authControllers {
                     res.cookie('accessToken', token, {
                         expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
                     })
-                    responseReturn(res, 200, { token, message: 'Login success' })
+                    responseReturn(res, 200, { token, userInfo: seller, message: 'Login success' })
                 } else {
                     responseReturn(res, 404, { error: "Password wrong" })
                 }
@@ -82,7 +82,7 @@ class authControllers {
                 res.cookie('accessToken', token, {
                     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
                 })
-                responseReturn(res, 201, { token, message: 'register success' })
+                responseReturn(res, 201, { token, userInfo: seller, message: 'register success' })
             }
         } catch (error) {
             responseReturn(res, 500, { error: 'Internal server error' })
@@ -91,8 +91,7 @@ class authControllers {
 
     getUser = async (req, res) => {
         const { id, role } = req;
-console.log(id)
-console.log(role)
+
         try {
             if (role === 'admin') {
                 const user = await adminModel.findById(id)
@@ -153,11 +152,11 @@ console.log(role)
 
     logout = async (req, res) => {
         try {
-            res.cookie('accessToken',null,{
-                expires : new Date(Date.now()),
-                httpOnly : true
+            res.cookie('accessToken', null, {
+                expires: new Date(Date.now()),
+                httpOnly: true
             })
-            responseReturn(res,200,{message : 'logout success'})
+            responseReturn(res, 200, { message: 'logout success' })
         } catch (error) {
             responseReturn(res, 500, { error: error.message })
         }
