@@ -91,7 +91,8 @@ class authControllers {
 
     getUser = async (req, res) => {
         const { id, role } = req;
-
+console.log(id)
+console.log(role)
         try {
             if (role === 'admin') {
                 const user = await adminModel.findById(id)
