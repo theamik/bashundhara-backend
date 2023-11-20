@@ -20,7 +20,7 @@ class authControllers {
                     const token = await createToken({
                         id: admin.id,
                         role: admin.role,
-                        userInfo: seller
+                        userInfo: admin
                     });
                     res.cookie('accessToken', token, {
                         expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)
