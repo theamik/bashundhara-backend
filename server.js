@@ -18,14 +18,14 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "DELETE"]
 }))
 
-// app.use(cors({
-//     origin: ['http://localhost:3000', 'http://localhost:3001'],
-//     credentials: true,
-//     methods: ["GET", "POST", "PUT", "DELETE"]
-// }))
+app.use(cors({
+    origin: process.env.pro? ['https://bashundhara-admin.onrender.com', 'https://bashundhara.vercel.app'] :['http://localhost:3000', 'http://localhost:3001'],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"]
+}))
 const io = socket(server, {
     cors: {
-        origin: '*',
+        origin: process.env.pro? ['https://bashundhara-admin.onrender.com', 'https://bashundhara.vercel.app'] :['http://localhost:3000', 'http://localhost:3001'],
         credentials: true
     }
 })
