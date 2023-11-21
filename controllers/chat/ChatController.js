@@ -220,7 +220,6 @@ class chatController {
 
     seller_message_add = async (req, res) => {
         const { senderId, text, receverId, name } = req.body
-        console.log('hello')
         try {
             const message = await sellerCustomerMessage.create({
                 senderId: senderId,

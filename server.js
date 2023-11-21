@@ -19,7 +19,7 @@ const server = http.createServer(app)
 // }))
 
 app.use(cors({
-    origin: process.env.pro? ['https://bashundhara-admin.onrender.com', 'https://bashundhara.vercel.app'] :['http://localhost:3000', 'http://localhost:3001'],
+    origin: ['https://bashundhara-admin.onrender.com', 'https://bashundhara.vercel.app'],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"]
 }))
